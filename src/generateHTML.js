@@ -31,6 +31,19 @@ const generateCardHTML = (teamMembers) => {
     let html = "";
 
     teamMembers.forEach(member => {
+        let htmlSnippet = null;
+        switch (member.getRole()){
+            case 'Manager': 
+                htmlSnippet = `Office number: ${member.getOfficeNumber()}`; 
+                break;
+            case 'Engineer': 
+                htmlSnippet = `GitHub: <a href="${member.getGithub()}" class="card-link">${member.getGithub()}</a>`; 
+                break;
+            case 'Intern': 
+                htmlSnippet = `School: ${member.getSchool()}`; 
+                break;
+        }
+
         const cardHTML = `
         <div class="card" style="width: 18rem;">
             <div class="card-body">
@@ -41,13 +54,13 @@ const generateCardHTML = (teamMembers) => {
                         ID: <span>${member.getId()}</span>
                     </li>
                     <li class="list-group-item">
-                        <a href="#" class="card-link">Email</a>
+                        Email: <a href="mailto: ${member.getEmail()}" class="card-link">${member.getEmail()}</a>
                     </li>
                     <li class="list-group-item">
-                        A third item
+                        ${htmlSnippet}
                     </li>
                 </ul>
-            </div>
+            </div> 
         </div>`;
         html += cardHTML;
     });
